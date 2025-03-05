@@ -1,143 +1,218 @@
-API TodoList
 
-Esta é uma API simples de gerenciamento de tarefas (to-do list), desenvolvida para permitir a criação, leitura, atualização e exclusão de tarefas. A API foi projetada para ser usada com um banco de dados para armazenar as tarefas e fornecer uma interface fácil de usar para interagir com a aplicação.
+# Auth Service API
 
-Tecnologias
-A API foi desenvolvida com as seguintes tecnologias:
 
-Node.js
-Express
-MongoDB (ou outro banco de dados, caso seja utilizado)
-Mongoose (para interação com MongoDB)
-JWT (para autenticação)
-Instalação
-1. Clonando o repositório
-Clone este repositório em sua máquina local:
+Este é um serviço de autenticação desenvolvido com Spring Boot e Spring Security, utilizando JWT (JSON Web Token) para fornecer autenticação sem estado (stateless). A API permite que usuários se registrem e façam login para obter um token JWT, que é utilizado para autenticação em requisições subsequentes.
 
-git clone https://github.com/th3ev3/API--TODOLIST.git
-2. Instalando as dependências
-Depois de clonar o repositório, navegue até o diretório do projeto e instale as dependências:
+## Instalação
 
-bash
-Copiar
-Editar
-cd API--TODOLIST
-npm install
-3. Configuração do ambiente
-Crie um arquivo .env na raiz do projeto e adicione as seguintes variáveis de ambiente (modifique conforme necessário):
+Clonar o Repositório
 
-bash
-Copiar
-Editar
-PORT=3000
-DB_URI=mongodb://localhost/todolist
-JWT_SECRET=your_jwt_secret
-4. Rodando a aplicação
-Após configurar o ambiente, você pode rodar a API com o comando:
+```bash
+git clone https://github.com/seu-usuario/seu-repositorio.git
+cd seu-repositorio
 
-bash
-Copiar
-Editar
-npm start
-A API estará disponível em http://localhost:3000.
+```
 
-Endpoints
-1. POST /tasks
-Cria uma nova tarefa.
+Configurar o Banco de Dados
 
-Corpo da Requisição:
 
-json
-Copiar
-Editar
+```bash
+CREATE DATABASE auth_service;
+
+```
+No arquivo application.properties (ou application.yml), configure as credenciais do banco:        
+
+```bash
+spring.datasource.url=jdbc:mysql://localhost:3306/auth_service
+spring.datasource.username=seu_usuario
+spring.datasource.password=sua_senha
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+
+
+```
+
+Instalar Dependências
+
+
+```bash
+mvn clean install
+
+```
+
+
+Executar a API
+
+
+
+```bash
+mvn spring-boot:run
+
+```
+## Stack utilizada
+
+**Back-end:** Spring Boot 3.1.5,
+Spring Security
+,JWT (JSON Web Token)
+,Spring Data JPA
+,MySQL
+,Lombok e
+Spring Boot DevTools
+
+
+## Documentação da API Auth Service
+
+
+#### Retorna todos os itens
+
+```http
+  POST /api/auth/register
+```
+
+### **1. Registrar Novo Usuário**
+
+#### Corpo da Requisição:
+
 {
-  "title": "Comprar leite",
-  "description": "Lembre-se de comprar leite no supermercado",
-  "due_date": "2025-03-01"
+  "username": "usuario_novo",
+  "password": "senha123"
 }
-Resposta:
 
-json
-Copiar
-Editar
+
+
+
+| Parâmetro   | Tipo       | Descrição                                   |
+| :---------- | :--------- | :------------------------------------------ |
+| username     | `string` | **Obrigatório**. Nome de usuário desejado. |
+| password	     | `string` | **Obrigatório**. Senha de usuário desejado. |
+
+#### Resposta de Sucesso
+
 {
-  "id": "unique_task_id",
-  "title": "Comprar leite",
-  "description": "Lembre-se de comprar leite no supermercado",
-  "due_date": "2025-03-01",
-  "status": "pending"
+  "message": "Usuário registrado com sucesso!"
 }
-2. GET /tasks
-Obtém todas as tarefas.
 
-Resposta:
 
-json
-Copiar
-Editar
-[
-  {
-    "id": "unique_task_id",
-    "title": "Comprar leite",
-    "description": "Lembre-se de comprar leite no supermercado",
-    "due_date": "2025-03-01",
-    "status": "pending"
-  }
-]
-3. PUT /tasks/:id
-Atualiza uma tarefa existente.
+#### Resposta de Erro (por exemplo, se o nome de usuário já existir):
 
-Corpo da Requisição:
-
-json
-Copiar
-Editar
 {
-  "title": "Comprar leite",
-  "description": "Comprar leite e pão",
-  "status": "completed"
+  "error": "O nome de usuário já está em uso."
 }
-Resposta:
 
-json
-Copiar
-Editar
+
+### **2. Login e Geração de Token JWT**
+
+```http
+  POST /api/auth/login
+```
+
+#### Corpo da Requisição:
+
 {
-  "id": "unique_task_id",
-  "title": "Comprar leite",
-  "description": "Comprar leite e pão",
-  "status": "completed"
+  "username": "usuario",
+  "password": "senha123"
 }
-4. DELETE /tasks/:id
-Deleta uma tarefa existente.
 
-Resposta:
 
-json
-Copiar
-Editar
+
+
+| Parâmetro   | Tipo       | Descrição                                   |
+| :---------- | :--------- | :------------------------------------------ |
+| username     | `string` | **Obrigatório**. Nome de usuário desejado. |
+| password	    | `string` | **Obrigatório**. Senha de usuário desejado. |
+
+
+
+#### Resposta de Sucesso
+
 {
-  "message": "Tarefa deletada com sucesso"
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
 }
-Contribuição
-Sinta-se à vontade para fazer um fork deste repositório e submeter pull requests. Se você encontrar algum bug ou tiver sugestões de melhorias, abra uma issue.
 
-Licença
-Este projeto está licenciado sob a MIT License - veja o arquivo LICENSE para mais detalhes.
 
-Contato
-Se você tiver dúvidas ou sugestões, entre em contato pelo e-mail: seu-email@dominio.com.
+#### Resposta de Erro (exemplo, credenciais inválidas)
 
-diff
-Copiar
-Editar
+{
+  "error": "Credenciais inválidas."
+}
 
-Este modelo cobre as principais informações que o README de um repositório deve ter, incluindo:
-- Descrição do projeto.
-- Tecnologias usadas.
-- Passos para instalação e configuração.
-- Exemplos de uso da API.
-- Como contribuir.
-- Licença e contato.
 
-Lembre-se de ajustar conforme os detalhes específicos do seu projeto.
+
+### **3. Acessar Endpoint Protegido**
+
+```http
+    GET /api/protected-endpoint
+```
+#### Cabeçalho da Requisição
+
+  Authorization: Bearer <seu_token_jwt>
+
+| Parâmetro   | Tipo       | Descrição                                   |
+| :---------- | :--------- | :------------------------------------------ |
+| token     | `string` | **Obrigatório**. Token JWT gerado após o login. |
+
+
+#### Resposta de Sucesso
+{
+  "message": "Acesso autorizado."
+}
+
+
+#### Resposta de Erro (se o token for inválido ou expirado)
+
+{
+  "error": "Token inválido ou expirado."
+}
+
+
+
+### **4. Logout**
+
+```http
+      POST /api/auth/logout
+```
+#### Cabeçalho da Requisição
+
+   Authorization: Bearer <seu_token_jwt>
+
+
+| Parâmetro   | Tipo       | Descrição                                   |
+| :---------- | :--------- | :------------------------------------------ |
+| token     | `string` | **Obrigatório**. Token JWT gerado após o login. |
+
+
+#### Resposta de Sucesso
+{
+  "message": "Usuário deslogado com sucesso."
+}
+
+
+#### Resposta de Erro (se o token não for fornecido ou for inválido)
+
+{
+  "error": "Token não fornecido ou inválido."
+}
+
+### **5. Recuperar Informações do Usuário**
+
+```http
+        GET /api/auth/user
+
+```
+#### Cabeçalho da Requisição
+
+  Authorization: Bearer <seu_token_jwt>
+
+
+#### Resposta de Sucesso
+{
+  "username": "usuario",
+  "createdAt": "2025-03-04T10:00:00Z"
+}
+
+
+#### Resposta de Erro (se o token for inválido ou expirado)
+{
+  "error": "Token inválido ou expirado."
+}
