@@ -1,55 +1,153 @@
-API TodoList
+
+# Documentação da API TodoList
 
 Esta é uma API simples de gerenciamento de tarefas (to-do list), desenvolvida para permitir a criação, leitura, atualização e exclusão de tarefas. A API foi projetada para ser usada com um banco de dados para armazenar as tarefas e fornecer uma interface fácil de usar para interagir com a aplicação.
 
-Tecnologias A API foi desenvolvida com as seguintes tecnologias:
+## Instalação
 
-Node.js Express MongoDB (ou outro banco de dados, caso seja utilizado) Mongoose (para interação com MongoDB) JWT (para autenticação) Instalação
+Clonar o Repositório
 
-Clonando o repositório Clone este repositório em sua máquina local:
-git clone https://github.com/th3ev3/API--TODOLIST.git 2. Instalando as dependências Depois de clonar o repositório, navegue até o diretório do projeto e instale as dependências:
+```bash
+ git clone https://github.com/th3ev3/API--TODOLIST.git
 
-bash Copiar Editar cd API--TODOLIST npm install 3. Configuração do ambiente Crie um arquivo .env na raiz do projeto e adicione as seguintes variáveis de ambiente (modifique conforme necessário):
+```
 
-bash Copiar Editar PORT=3000 DB_URI=mongodb://localhost/todolist JWT_SECRET=your_jwt_secret 4. Rodando a aplicação Após configurar o ambiente, você pode rodar a API com o comando:
 
-bash Copiar Editar npm start A API estará disponível em http://localhost:3000.
 
-Endpoints
+Instalar Dependências 
 
-POST /tasks Cria uma nova tarefa.
-Corpo da Requisição:
+Depois de clonar o repositório, navegue até o diretório do projeto e instale as dependências:
 
-json Copiar Editar { "title": "Comprar leite", "description": "Lembre-se de comprar leite no supermercado", "due_date": "2025-03-01" } Resposta:
 
-json Copiar Editar { "id": "unique_task_id", "title": "Comprar leite", "description": "Lembre-se de comprar leite no supermercado", "due_date": "2025-03-01", "status": "pending" } 2. GET /tasks Obtém todas as tarefas.
+```bash
+ cd API--TODOLIST
+ npm install
 
-Resposta:
+```
 
-json Copiar Editar [ { "id": "unique_task_id", "title": "Comprar leite", "description": "Lembre-se de comprar leite no supermercado", "due_date": "2025-03-01", "status": "pending" } ] 3. PUT /tasks/:id Atualiza uma tarefa existente.
 
-Corpo da Requisição:
+Configuração do ambiente
 
-json Copiar Editar { "title": "Comprar leite", "description": "Comprar leite e pão", "status": "completed" } Resposta:
+Crie um arquivo .env na raiz do projeto e adicione as seguintes variáveis de ambiente (modifique conforme necessário):
 
-json Copiar Editar { "id": "unique_task_id", "title": "Comprar leite", "description": "Comprar leite e pão", "status": "completed" } 4. DELETE /tasks/:id Deleta uma tarefa existente.
+```bash
+PORT=3000
+DB_URI=mongodb://localhost/todolist
+JWT_SECRET=your_jwt_secret
 
-Resposta:
+```
 
-json Copiar Editar { "message": "Tarefa deletada com sucesso" } Contribuição Sinta-se à vontade para fazer um fork deste repositório e submeter pull requests. Se você encontrar algum bug ou tiver sugestões de melhorias, abra uma issue.
+Rodando a aplicação
 
-Licença Este projeto está licenciado sob a MIT License - veja o arquivo LICENSE para mais detalhes.
+Após configurar o ambiente, você pode rodar a API com o comando:
 
-Contato Se você tiver dúvidas ou sugestões, entre em contato pelo e-mail: seu-email@dominio.com.
+```bash
+npm start
 
-diff Copiar Editar
+```
+## Stack utilizada
 
-Este modelo cobre as principais informações que o README de um repositório deve ter, incluindo:
+**Back-end:** Node.js, Express, MongoDB, Mongoose, JWT.
 
-Descrição do projeto.
-Tecnologias usadas.
-Passos para instalação e configuração.
-Exemplos de uso da API.
-Como contribuir.
-Licença e contato.
-Lembre-se de ajustar conforme os detalhes específicos do seu projeto.
+## Endpoints
+
+#### 1. Criar uma nova tarefa
+
+```http
+  POST /tasks
+```
+#### Corpo da Requisição:
+
+```bash
+{
+  "title": "Comprar leite",
+  "description": "Lembre-se de comprar leite no supermercado",
+  "due_date": "2025-03-01"
+}
+
+```
+#### Resposta: 
+
+```bash
+{
+  "id": "unique_task_id",
+  "title": "Comprar leite",
+  "description": "Lembre-se de comprar leite no supermercado",
+  "due_date": "2025-03-01",
+  "status": "pending"
+}
+```
+
+
+
+
+#### 2. Obter todas as tarefas
+
+```http
+ GET /tasks
+```
+#### Resposta:
+
+```bash
+
+  {
+    "id": "unique_task_id",
+    "title": "Comprar leite",
+    "description": "Lembre-se de comprar leite no supermercado",
+    "due_date": "2025-03-01",
+    "status": "pending"
+  }
+
+```
+
+
+
+#### 3. Atualizar uma tarefa existente
+
+```http
+ PUT /tasks/****************:id
+```
+#### Corpo da requisição:
+
+```bash
+
+{
+  "title": "Comprar leite",
+  "description": "Comprar leite e pão",
+  "status": "completed"
+}
+
+```
+
+#### Resposta:
+
+```bash
+{
+  "id": "unique_task_id",
+  "title": "Comprar leite",
+  "description": "Comprar leite e pão",
+  "status": "completed"
+}
+```
+
+
+
+#### 4. Deletar uma tarefa existente
+
+```http
+ DELETE /tasks/****************:id
+```
+#### Resposta:
+
+```bash
+
+{
+  "message": "Tarefa deletada com sucesso"
+}
+
+```
+
+
+
+
+
