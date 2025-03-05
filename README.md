@@ -4,7 +4,7 @@
 
 Este é um serviço de autenticação desenvolvido com Spring Boot e Spring Security, utilizando JWT (JSON Web Token) para fornecer autenticação sem estado (stateless). A API permite que usuários se registrem e façam login para obter um token JWT, que é utilizado para autenticação em requisições subsequentes.
 
-## Instalação
+## Instalação 
 
 Clonar o Repositório
 
